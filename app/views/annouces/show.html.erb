@@ -1,0 +1,122 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-3 text-center">
+                       <%= link_to user_path(@annouce.user) do %>
+                        <%= image_tag avatar_url(@annouce.user), class:"img-circle avatar-large" %>
+                        <% end %>
+                        <br>
+                        <br>
+                        <%= @annouce.user.fullname %>
+                    </div>
+                    <div class="col-md-9">
+                        <h4><%= @annouce.title %></h4>
+                        <a class="sidebar-link"><%= @annouce.address %></a> <a href="#average_rating", class="sidebar-link"><span id="average_rating_header"></span> <%= @reviews.count %></a>
+
+                        <div class="row text-center">
+                            <div class="col-sm-3">
+                                <%= @annouce.categorie %>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>A propos de ce logement</h2>
+                        <p><%= @annouce.description %></p>
+                    </div>
+                </div>
+
+                <br>
+
+
+                <div class="row">
+                </div>
+        <br>
+        <hr>
+
+
+
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                  <!-- Indicators -->
+                    <% if @photos %>
+                        <% @photos.each do |photo| %>
+                          <ol class="carousel-indicators">
+                            <li data-target="#myCarousel" data-slide-to="<%= photo.id %>" class="active"></li>
+                          </ol>
+                        <% end %>
+                    <% end %>
+
+
+                  <div class="carousel-inner" role="listbox">
+                    <% if @photos %>
+                    <% @photos.each do |photo| %>
+                    <div class="item <%= 'active' if photo.id == @photos[0].id %>">
+                      <%= image_tag photo.image.url() %>
+                    </div>
+                    <% end %>
+                    <% end %>
+
+                  </div>
+
+
+                  <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    <span class="sr-only">Précédent</span>
+                  </a>
+                  <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <span class="sr-only">Suivant</span>
+                  </a>
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <hr>
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <h3><%= pluralize(@reviews.count, 'Commentaire') %> <span id="average_rating"></span></h3>
+                <div class="container">
+                    <div>
+                        <%= render 'reviews/form' if @booked && !@hasReview %>
+                    </div>
+                    <div>
+                        <%= render 'reviews/list' %>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+
+    </div>
+</div>
+
+
+        <script>
+            $('#average_rating').raty({
+                path: '/assets',
+                readOnly: true,
+                score: <%= @annouce.average_rating %>
+            });
+        </script>
+
+        <script>
+            $('#average_rating_header').raty({
+                path: '/assets',
+                readOnly: true,
+                score: <%= @annouce.average_rating %>
+            });
+        </script>
