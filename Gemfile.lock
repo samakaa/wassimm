@@ -1109,7 +1109,8 @@ GEM
     polyamorous (2.3.2)
       activerecord (>= 5.2.1)
     public_suffix (4.0.3)
-    puma (3.12.4)
+    puma (4.3.12)
+      nio4r (~> 2.0)
     rack (2.2.2)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -1267,7 +1268,7 @@ DEPENDENCIES
   paperclip (~> 6.0.0)
   paperclip-cloudinary
   pg
-  puma (~> 3.7)
+  puma (~> 4.3)
   rails (~> 6.0.0)
   rails-i18n
   rails-timeago
